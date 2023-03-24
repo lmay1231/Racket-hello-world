@@ -1,0 +1,23 @@
+#lang racket
+(define (sayHello name)
+  (print (string-append "hello, " name)))
+
+(define (max-list lst)
+  (cond ((null? lst) #f)
+        ((null? (cdr lst)) (car lst))
+        (else (let ((rest (max-list (cdr lst))))
+                (if (> (car lst) rest)
+                    (car lst)
+                    rest)))))
+
+(define (deeplist lst)
+  (cond ((null? lst) #f)
+        ((not (pair? lst)) lst)
+        (else (let ((rest (deeplist (cdr lst))))
+                (let ((current-max (deeplist (car lst))))
+                  (if (or (not rest) (> current-max rest))
+                      current-max
+                      rest))))))
+
+(define (lensort a b)
+  (< (length a) (length b)))
